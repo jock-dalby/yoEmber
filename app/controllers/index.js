@@ -25,7 +25,7 @@ export default Ember.Controller.extend({
       // and shows an alert box, sets up a responseMessage property,
       // and finally deletes the content of emailAddress.
       alert(`Saving ${this.get('emailAddress')} in progress...`);
-      this.set('responseMessage', `Thank you! We have now saved your email adress: ${this.get('emailAddress')}`);
+      this.set('responseMessage', `Thank you! We have now saved your email address: ${this.get('emailAddress')}`);
       this.set('emailAddress', '');
     }
   }

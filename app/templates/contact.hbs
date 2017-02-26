@@ -1,0 +1,22 @@
+<h1>Contact Page</h1>
+<div class="jumbotron">
+  <form>
+    <div class="form-horizontal form-group form-group-lg row">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        {{input type="email" value=emailAddress class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"}}
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        {{textarea value=message class="form-control" id="message" rows="3"}}
+      </div>
+      <button disabled={{isDisabled}} {{action 'sendMessage'}} type="submit" class="btn btn-primary">Send Message</button>
+    </div>
+  </form>
+
+  {{#if responseMessage}}
+    <div class="alert alert-success">{{responseMessage}}</div>
+  {{/if}}
+  
+</div>
