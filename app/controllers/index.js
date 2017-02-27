@@ -26,13 +26,26 @@ export default Ember.Controller.extend({
       // If you click on the button, the saveInvitation action is called
       // and saves the record, updates responseMessage property,
       // and finally deletes the content of emailAddress.
-
       const email = this.get('emailAddress');
-      const newInvitation = this.store.createRecord('invitation', { email: email});
-      newInvitation.save();
+      const newInvitation = this.store.createRecord('invitation', {
+        email: email
+      });
 
-      this.set('responseMessage', `Thank you! We have now saved your email address: ${this.get('emailAddress')}`);
-      this.set('emailAddress', '');
+      /* ES5 method
+      const self = this;
+      newInvitation.save().then(function(response) {
+        self.set('responseMessage', `Thank you! We have now saved your email address: ${self.get('emailAddress')}`);
+        self.set('emailAddress', '');
+      });
+      */
+
+      // ES6 method
+      newInvitation.save().then(response => {
+        this.set('responseMessage', `Thank you! We have now saved your email address: ${this.get('emailAddress')}`);
+        console.log(`${response.get('id')} complete.`)
+        this.set('emailAddress', '');
+      });
+
     }
   }
 
