@@ -1,19 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model() {
-    return this.store.createRecord('library')
+
+  model: function () {
+    return this.store.createRecord('library');
+  },
+
+  setupController: function (controller, model) {
+    this._super(controller, model);
+
+    controller.set('title', 'Create a new library');
+    controller.set('buttonLabel', 'Create');
+  },
+
+  renderTemplate() {
+    this.render('libraries/form');
   },
 
   actions: {
+
     saveLibrary(newLibrary) {
       newLibrary.save().then(() => this.transitionTo('libraries'));
     },
 
     willTransition() {
-      // There is a built-in Ember.js action (event) called willTransition that is called when you leave a page (route).
-      // We can use this action to reset the model if not saved it in the database yet.
-      this.controller.get('model').rollbackAttributes();
+      let model = this.controller.get('model');
+
+      if (model.get('isNew')) {
+        model.destroyRecord();
+      }
     }
   }
 });
