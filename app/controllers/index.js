@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  headerMessage: 'Coming Soon',
+  responseMessage: '',
   emailAddress: '',
   // Check for valid email address
   isValid: Ember.computed.match('emailAddress', /^.+@.+\..+$/),
@@ -22,9 +24,13 @@ export default Ember.Controller.extend({
   actions: {
     saveInvitation() {
       // If you click on the button, the saveInvitation action is called
-      // and shows an alert box, sets up a responseMessage property,
+      // and saves the record, updates responseMessage property,
       // and finally deletes the content of emailAddress.
-      alert(`Saving ${this.get('emailAddress')} in progress...`);
+
+      const email = this.get('emailAddress');
+      const newInvitation = this.store.createRecord('invitation', { email: email});
+      newInvitation.save();
+
       this.set('responseMessage', `Thank you! We have now saved your email address: ${this.get('emailAddress')}`);
       this.set('emailAddress', '');
     }
